@@ -1,17 +1,17 @@
-import { join } from "node:path";
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
-import unocss from "unocss/vite";
-import unimport from "unimport/unplugin";
-import dotenv from "dotenv";
-import nitro from "./nitro.config";
-import { projectDir } from "./shared/dir";
-import pwa from "./pwa.config";
+import { join } from "node:path"
+import { defineConfig } from "vite"
+import react from "@vitejs/plugin-react-swc"
+import { TanStackRouterVite } from "@tanstack/router-plugin/vite"
+import unocss from "unocss/vite"
+import unimport from "unimport/unplugin"
+import dotenv from "dotenv"
+import nitro from "./nitro.config"
+import { projectDir } from "./shared/dir"
+import pwa from "./pwa.config"
 
 dotenv.config({
   path: join(projectDir, ".env.server"),
-});
+})
 
 export default defineConfig({
   resolve: {
@@ -27,13 +27,10 @@ export default defineConfig({
     }),
     unimport.vite({
       dirs: ["src/hooks", "shared", "src/utils", "src/atoms"],
-      presets: [
-        "react",
-        {
-          from: "jotai",
-          imports: ["atom", "useAtom", "useAtomValue", "useSetAtom"],
-        },
-      ],
+      presets: ["react", {
+        from: "jotai",
+        imports: ["atom", "useAtom", "useAtomValue", "useSetAtom"],
+      }],
       imports: [
         { from: "clsx", name: "default", as: "$" },
         { from: "jotai/utils", name: "atomWithStorage" },
@@ -45,10 +42,4 @@ export default defineConfig({
     pwa(),
     nitro(),
   ],
-  build: {
-    outDir: "dist/output/public", // 输出目录
-    rollupOptions: {
-      input: join(projectDir, "index.html"), // 入口文件
-    },
-  },
-});
+})
